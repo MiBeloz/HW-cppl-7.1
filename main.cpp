@@ -5,6 +5,8 @@
 #include <vector>
 #include <algorithm>
 
+typedef std::pair<char, int> p_ci;
+
 
 int main() {
 	setlocale(LC_ALL, "ru");
@@ -22,24 +24,24 @@ int main() {
 	std::cout << "[IN]: " << default_text << std::endl << std::endl;
 	std::cout << "[OUT]:" << std::endl;
 
-	std::map<char, int> map_char;
+	std::map<char, int> map;
 	for (const auto& el : default_text) {
-		auto it = map_char.find(el);
-		if (it == map_char.end()) {
-			map_char[el] = 1;
+		auto it = map.find(el);
+		if (it == map.end()) {
+			map[el] = 1;
 		}
 		else {
-			map_char[el] = it->second + 1;
+			map[el] = it->second + 1;
 			
 		}
 	}
 
-	std::vector<std::pair<char, int>> vector_char(map_char.begin(), map_char.end());
+	std::vector<p_ci> vector(map.begin(), map.end());
 
-	std::sort(vector_char.begin(), vector_char.end(), [](const std::pair<char, int>& lhs, const std::pair<char, int>& rhs) {
+	std::sort(vector.begin(), vector.end(), [](const p_ci& lhs, const p_ci& rhs) {
 		return lhs.second > rhs.second; });
 
-	for (const auto& el : vector_char) {
+	for (const auto& el : vector) {
 		std::cout << el.first << ": " << el.second << std::endl;
 	}
 
